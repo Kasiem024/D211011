@@ -24,11 +24,13 @@ req.onload = () => {
         recordId.textContent = element.record.fields.Name;
 
         recordIdBtn.id = 'btnId' + i;
+        recordIdBtn.className = 'btnClass';
+        recordIdBtn.textContent = element.record.fields.Name;
 
-        recordIdBtn.addEventListener('click', Button1Handler);
+        const container = document.getElementById('ulRecordId');
 
         recordIdBtn.style.width = "100px";
-        recordIdBtn.style.height = "20px";
+        recordIdBtn.style.height = "50px";
 
         document.getElementById('ulRecordId').appendChild(recordId);
         document.getElementById('ulRecordId').appendChild(recordIdBtn);
@@ -36,15 +38,19 @@ req.onload = () => {
         // The textcontent of that li is whatever the Name of the current record is
         // record is a variable created in homeController when adding items to the array recordArr
         // Showing the current li and button in ulRecords
+        let btnPressed;
+        // Click handler for entire DIV container
+        container.addEventListener('click', function(e) {
+            // But only alert for elements that have an alert-button class
+            if (e.target.classList.contains('btnClass')) {
+                if (e.target.innerHTML == element.record.fields.Name) {
+                    console.log(element.record.id);
+                    btnPressed = element.record.id;
+                    btnPressed = element.record.id.find();
+                    console.log(btnPressed)
+                }
+            }
+        });
+
     });
 };
-const Button1Handler = () => {
-    const data = req.response;
-
-    console.log('This is buttonhandler1' + data[0].record.fields.Name)
-
-    data.forEach((element, i) => {
-        let recordIdBtn = document.getElementById('btnId' + i);
-        console.log(recordIdBtn.id);
-    });
-}
