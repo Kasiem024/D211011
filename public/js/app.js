@@ -9,15 +9,5 @@ req.send();
 
 req.onload = () => { //Runs when JSON data file is loaded
     const data = req.response;
-    console.log(data);
-
-    let dataArr = [data];
-    console.log(data[0]);
-    console.log(data[0].id);
-
-
-
-
-
-
+    console.log(data.fields.Name);
 };

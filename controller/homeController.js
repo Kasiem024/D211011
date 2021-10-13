@@ -22,7 +22,7 @@ exports.data = (req, res) => {
             let newTest = JSON.stringify(record._rawJson);
             console.log(newTest)
             recordList.push({
-                "raw": newTest
+                "test": newTest
             });
         });
 
