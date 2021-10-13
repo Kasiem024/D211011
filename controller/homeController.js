@@ -16,7 +16,11 @@ exports.data = (req, res) => {
     let recordArr = [];
     // Creating array here to be used later
 
-    base('Design projects').select().eachPage(function page(records, fetchNextPage) {
+    base('Design projects').select({
+        sort: [{ field: "Name" }]
+            // Sorts all items in property Name inside field by ascending order
+
+    }).eachPage(function page(records, fetchNextPage) {
         // This function page will get called for each page of records
         // Calls for Desgin projects which is a table inside base() which is an application in Airtable
 
