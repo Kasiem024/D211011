@@ -7,31 +7,36 @@ exports.index = (req, res) => {
 exports.data = (req, res) => {
 
     const Airtable = require('airtable');
+    // Calling to Airtable module
+
     const base = new Airtable({
         apiKey: 'keyAlLLzNbI6dhsd1'
     }).base('appoIX6ThocYXfAlx');
 
-    let recordList = [];
+    let recordArr = [];
+    // Creating array here to be used later
 
-    base('Design projects').select({
-        view: "All projects"
-    }).eachPage(function page(records, fetchNextPage) {
-        // This function (`page`) will get called for each page of records.
+    base('Design projects').select().eachPage(function page(records, fetchNextPage) {
+        // This function page will get called for each page of records
+        // Calls for Desgin projects which is a table inside base() which is an application in Airtable
 
         records.forEach(function(record) {
-            let recordRaw = record._rawJson;
-            recordList.push({
-                "record": recordRaw
+            recordArr.push({
+                "record": record._rawJson
             });
+            // push() adds a new item to the array
+
         });
 
-        // To fetch the next page of records, call `fetchNextPage`.
-        // If there are more records, `page` will get called again.
-        // If there are no more records, `done` will get called.
+        // To fetch the next page of records, call fetchNextPage
+        // If there are more records, page will get called again
+        // If there are no more records, done will get called
+
         fetchNextPage();
 
     }, function done(err) {
-        res.send(recordList);
+        res.send(recordArr);
+        // Enabling recordList to be called by XHR in other files
 
         if (err) {
 
