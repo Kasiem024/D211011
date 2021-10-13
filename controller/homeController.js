@@ -1,19 +1,28 @@
 'use strict';
 
 exports.index = (req, res) => {
+    res.sendfile('public/home.html');
+}
+
+exports.data = (req, res) => {
 
     const Airtable = require('airtable');
-    const base = new Airtable({ apiKey: 'keyAlLLzNbI6dhsd1' }).base('appoIX6ThocYXfAlx');
+    const base = new Airtable({
+        apiKey: 'keyAlLLzNbI6dhsd1'
+    }).base('appoIX6ThocYXfAlx');
+
+    let recordList = [];
 
     base('Design projects').select({
-        // Selecting the first 3 records in All projects:
         view: "All projects"
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.
 
         records.forEach(function(record) {
-            console.log('Retrieved', record.id);
-
+            let newTest = JSON.stringify(record._rawJson);
+            recordList.push({
+                "raw": newTest
+            });
         });
 
         // To fetch the next page of records, call `fetchNextPage`.
@@ -21,9 +30,15 @@ exports.index = (req, res) => {
         // If there are no more records, `done` will get called.
         fetchNextPage();
 
-    }, function done(err) {
-        if (err) { console.error(err); return; }
-    });
 
-    res.sendfile('public/home.html');
+
+    }, function done(err) {
+        res.send(JSON.stringify(recordList));
+
+        if (err) {
+
+            console.error(err);
+            return;
+        }
+    });
 };
