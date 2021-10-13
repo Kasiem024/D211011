@@ -8,8 +8,16 @@ req.responseType = 'json';
 req.send();
 
 req.onload = () => { //Runs when JSON data file is loaded
-    let data = req.response;
-
+    const data = req.response;
     console.log(data);
-    console.log(data.id);
+
+    let dataArr = [data];
+    console.log(data[0]);
+    console.log(data[0].id);
+
+
+
+
+
+
 };

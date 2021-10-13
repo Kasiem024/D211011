@@ -20,6 +20,7 @@ exports.data = (req, res) => {
 
         records.forEach(function(record) {
             let newTest = JSON.stringify(record._rawJson);
+            console.log(newTest)
             recordList.push({
                 "raw": newTest
             });
