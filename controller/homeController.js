@@ -19,10 +19,9 @@ exports.data = (req, res) => {
         // This function (`page`) will get called for each page of records.
 
         records.forEach(function(record) {
-            let newTest = JSON.stringify(record._rawJson);
-            console.log(newTest)
+            let recordRaw = record._rawJson;
             recordList.push({
-                "test": newTest
+                "record": recordRaw
             });
         });
 
@@ -31,10 +30,8 @@ exports.data = (req, res) => {
         // If there are no more records, `done` will get called.
         fetchNextPage();
 
-
-
     }, function done(err) {
-        res.send(JSON.stringify(recordList));
+        res.send(recordList);
 
         if (err) {
 

@@ -9,5 +9,7 @@ req.send();
 
 req.onload = () => { //Runs when JSON data file is loaded
     const data = req.response;
-    console.log(data.fields.Name);
+    console.log(data[0].record.id);
+    data.forEach(element => console.log(element.record.id));
+
 };
