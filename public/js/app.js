@@ -20,37 +20,40 @@ req.onload = () => {
     data.forEach((element, i) => {
         let recordId = document.createElement('li');
         let recordIdBtn = document.createElement('button')
+        let allRecordData = document.createElement('p');
+        // For each element in data an li, button and p is created
 
         recordId.textContent = element.record.fields.Name;
+        // The textcontent of li is whatever the Name of the current record/element is
+        // record is a variable created in homeController when adding items to the array recordArr
 
-        recordIdBtn.id = 'btnId' + i;
-        recordIdBtn.className = 'btnClass';
         recordIdBtn.textContent = element.record.fields.Name;
-
-        const container = document.getElementById('ulRecordId');
+        recordIdBtn.className = 'btnClass';
 
         recordIdBtn.style.width = "100px";
         recordIdBtn.style.height = "50px";
 
         document.getElementById('ulRecordId').appendChild(recordId);
         document.getElementById('ulRecordId').appendChild(recordIdBtn);
-        // For each element in data an li and button is created
-        // The textcontent of that li is whatever the Name of the current record is
-        // record is a variable created in homeController when adding items to the array recordArr
         // Showing the current li and button in ulRecords
-        let btnPressed;
-        // Click handler for entire DIV container
-        container.addEventListener('click', function(e) {
-            // But only alert for elements that have an alert-button class
+
+        const divEvent = document.getElementById('ulRecordId');
+
+        divEvent.addEventListener('click', (e) => {
+            // Added a click eventListener for all elements in div ulRecordId
+
             if (e.target.classList.contains('btnClass')) {
-                if (e.target.innerHTML == element.record.fields.Name) {
-                    console.log(element.record.id);
-                    btnPressed = element.record.id;
-                    btnPressed = element.record.id.find();
-                    console.log(btnPressed)
+                // If the element being clicked is part of class btnClass
+
+                if (e.target.textContent == element.record.fields.Name) {
+                    // If the textContent of the clicked element matches the Name of an element 
+
+                    allRecordData.textContent = JSON.stringify(element.record.fields);
+                    // element.record.fields is a JSON object, stringify makes it a string
+
+                    document.getElementById('ulRecord').appendChild(allRecordData);
                 }
             }
         });
-
     });
 };
