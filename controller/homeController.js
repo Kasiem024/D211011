@@ -17,8 +17,11 @@ exports.data = (req, res) => {
     // Creating array here to be used later
 
     base('Design projects').select({
-        sort: [{ field: "Name" }]
-            // Sorts all items in property Name inside field by ascending order
+        sort: [{ field: "Name" }],
+        // Sorts all items in property Name inside field by ascending order
+
+        fields: ["Name", "Client", "Category", "Complete", "Project team", "Due date", "Kickoff date", "Notes"],
+        // Choosing which properties in fields to receive, to limit amount of data received
 
     }).eachPage(function page(records, fetchNextPage) {
         // This function page will get called for each page of records
